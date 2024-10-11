@@ -1,1 +1,7 @@
-<a href="{{ route('surat_tugas.create') }}">Create New Surat Tugas</a>
+
+
+@extends('layouts.app')
+
+@section('content')
+ 
+@endsection

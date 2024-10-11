@@ -13,6 +13,18 @@ return new class extends Migration
     {
         Schema::create('pegawais', function (Blueprint $table) {
             $table->id();
+            $table->string('unit'); // Required
+            $table->string('direktorat'); // Required
+            $table->string('nama'); // Required
+            $table->string('nip')->unique()->nullable(); // Make this nullable
+            $table->string('golongan')->nullable(); // Nullable
+            $table->string('jabatan_1'); // Required
+            $table->string('jabatan_2')->nullable(); // Nullable
+            $table->string('no_handphone')->nullable(); // Nullable
+            $table->string('email')->nullable(); // Nullable
+            $table->string('npwp')->unique()->nullable(); // Make this nullable
+            $table->string('ktp')->unique()->nullable(); // Make this nullable
+            $table->string('status')->nullable(); // Nullable
             $table->timestamps();
         });
     }

@@ -9,7 +9,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100 min-h-screen flex flex-col">
-    <nav class="bg-white shadow-sm">
+<nav class="bg-white shadow-sm w-full px-4 sm:px-6 lg:px-8">
+
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex">
@@ -17,17 +18,16 @@
                         <a href="/" class="text-xl font-bold text-gray-800">Logo</a>
                     </div>
                     <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
-                        <a href="#" class="border-b-2 border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium">
+                        <a href="/" class="border-b-2 border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium">
                             Beranda
                         </a>
-                        <a href="#" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            Tentang
+                        <a href="{{ route('surat_tugas.create') }}" class="border-b-2 border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium">
+                            Create New Surat Tugas
                         </a>
-                        <a href="#" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            Layanan
+                     
                         </a>
-                        <a href="#" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            Kontak
+                        <a href="/pegawai/create" class="border-b-2 border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium">
+                            Create pegawai
                         </a>
                     </div>
                 </div>
@@ -76,17 +76,12 @@
     </nav>
 
     <main class="flex-grow">
-        <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-            @yield('content')
-        </div>
-    </main>
+    <div class="w-full mx-auto py-6 sm:px-6 lg:px-8">
+        @yield('content')
+    </div>
+</main>
 
-    <footer class="bg-white shadow">
-        <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
-            <p class="text-center text-gray-500 text-sm">
-                &copy; 2024 Aplikasi Saya. Hak Cipta Dilindungi.
-            </p>
-        </div>
-    </footer>
+
+   
 </body>
 </html>

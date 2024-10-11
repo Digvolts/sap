@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\pegawai;
+use App\Models\Province;
 use App\Models\surat_tugas;
 use Illuminate\Http\Request;
 
@@ -11,6 +13,30 @@ class surat_tugasController extends Controller
     {
         return view('surat_tugas.create');
     }
+
+    public function searchCities(Request $request)
+    {
+        $query = $request->input('q');
+        $cities = Province::join('cities', 'provinces.prov_id', '=', 'cities.prov_id')
+            ->where('cities.city_name', 'LIKE', $query . '%') // Menggunakan pola pencarian yang cocok dengan huruf depan
+            ->orderBy('cities.city_name', 'asc')
+            ->select('cities.city_name', 'provinces.prov_name')
+            ->get();
+    
+        return response()->json($cities);
+    }
+    public function getSuggestions(Request $request)
+    {
+        $query = $request->input('query');
+        
+        // Assuming you have a model named Employee to fetch names
+        $suggestions = pegawai::where('nama', 'LIKE', "%{$query}%")->get();
+    
+        return response()->json($suggestions);
+    }
+    
+    
+    
 
     public function store(Request $request)
     {
