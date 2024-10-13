@@ -27,4 +27,8 @@ class surat_tugas extends Model
         'is_draft',
         'catatan',
     ];
+    public function pelaksana()
+    {
+        return $this->belongsToMany(Pegawai_Pd::class, 'surat_tugas_pegawai', 'surat_tugas_id', 'pegawai_pd_id');
+    }
 }

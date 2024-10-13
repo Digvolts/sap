@@ -195,8 +195,17 @@
 
                     <div class="form-group">
                         <label for="detail_jadwal" class="form-label">Detail Jadwal PD</label>
-                        belum ada pelaksana perjalanan dinas
+                        @if(isset($pegawaiPds) && $pegawaiPds->count() > 0)
+                            <ul>
+                            @foreach($pegawaiPds as $pegawai)
+                                <li>{{ $pegawai->nama }}</li>
+                            @endforeach
+                            </ul>
+                        @else
+                            <p>Belum ada pelaksana perjalanan dinas</p>
+                        @endif
                     </div>
+
 
                     <div class="form-group">
                         <label for="penandatanganan" class="form-label">Set Penandatanganan</label>
@@ -343,5 +352,8 @@ document.addEventListener('DOMContentLoaded', function() {
         height: 200,
     });
 });
+
+
+
 </script>
 @endsection

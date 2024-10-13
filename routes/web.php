@@ -22,7 +22,7 @@ Route::get('/surat-tugas/create', [surat_tugasController::class, 'create'])->nam
 Route::post('/surat-tugas', [surat_tugasController::class, 'store'])->name('surat_tugas.store');
 Route::get('/search-cities', [surat_tugasController::class, 'searchCities']);
 Route::get('/pegawai/suggestions', [surat_tugasController::class, 'getSuggestions']);
-
+Route::post('/pegawai/add', [surat_tugasController::class, 'store_pd']);
 
 Route::get('/pegawai/data', [PegawaiController::class, 'getData'])->name('pegawai.data');
 Route::get('/pegawai', [pegawaiController::class, 'index'])->name('pegawai.index');
