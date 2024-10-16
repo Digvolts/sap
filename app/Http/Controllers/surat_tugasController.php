@@ -99,22 +99,30 @@ class surat_tugasController extends Controller
     
     public function store_pd(Request $request)
     {
- 
+         // Validasi data dari modal
+         $validated = $request->validate([
+            'nama' => 'required|string|max:255',
+            'nip' => 'required|string|unique:pegawai_pds,nip',
+            'jabatan_1' => 'required|string|max:255',
+            'golongan' => 'nullable|string|max:255',
+            'status' => 'nullable|string',
+        ]);
+        
+        // Simpan data pegawai
+        $pegawai = Pegawai_Pd::create($validated);
+        
+        // Kembalikan ID pegawai yang baru disimpan sebagai response
+        
+        return response()->json([
+            'success' => true, 
+            'id' => $pegawai->id,
+            'nama' => $pegawai->nama,
+            'nip' => $pegawai->nip,
+            'jabatan_1' => $pegawai->jabatan_1,
+            'golongan' => $pegawai->golongan,
+            'status' => $pegawai->status
+        ]);
 
- // Validasi data dari modal
- $validated = $request->validate([
-    'nama' => 'required|string|max:255',
-    'nip' => 'required|string|unique:pegawai_pds,nip',
-    'jabatan_1' => 'required|string|max:255',
-    'golongan' => 'required|string|max:255',
-    'status' => 'required|string',
-]);
-
-// Simpan data pegawai
-$pegawai = Pegawai_Pd::create($validated);
-
-// Kembalikan ID pegawai yang baru disimpan sebagai response
-return response()->json(['id' => $pegawai->id]);
     }
 }
 

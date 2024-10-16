@@ -6,8 +6,8 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-            <div id="error-message" class="alert alert-danger" style="display: none;"></div>
-                <form id="employeeForm">
+                <div id="error-message" class="alert alert-danger" style="display: none;"></div>
+                <form id="pegawaiForm">
                     <div class="mb-3">
                         <label for="nama" class="form-label">Nama Pegawai</label>
                         <input type="text" class="form-control" id="nama" placeholder="Nama">
@@ -49,17 +49,14 @@
 </div>
 
 <script>
-    
 document.getElementById('nama').addEventListener('input', function() {
     const query = this.value;
-
     if (query.length > 2) {
         fetch(`/pegawai/suggestions?query=${query}`)
             .then(response => response.json())
             .then(data => {
                 const suggestionsBox = document.getElementById('nama-suggestions');
                 suggestionsBox.innerHTML = '';
-
                 data.forEach(item => {
                     const suggestionItem = document.createElement('div');
                     suggestionItem.textContent = item.nama;
@@ -105,12 +102,13 @@ document.getElementById('add-button').addEventListener('click', function(event) 
         },
         success: function(response) {
             if (response.success) {
-                let pelaksanaField = $('#pelaksana_ids');
-                pelaksanaField.append(`<input type="hidden" name="pelaksana_ids[]" value="${response.id}">`);
-                $('#addedEmployeesList').append(`<div>${nama} (${nip || 'NIP tidak diisi'})</div>`);
+                // Buat event custom untuk memberitahu halaman utama
+                const event = new CustomEvent('pegawaiAdded', { detail: response });
+                window.dispatchEvent(event);
+
+                // Reset form dan sembunyikan modal setelah data ditambahkan
+                document.getElementById('pegawaiForm').reset();
                 $('#formModal').modal('hide');
-                
-                document.getElementById('employeeForm').reset();
             } else {
                 errorMessageDiv.textContent = response.message || 'Gagal menambahkan pegawai. Silakan coba lagi.';
                 errorMessageDiv.style.display = 'block';
@@ -149,8 +147,6 @@ document.getElementById('add-button').addEventListener('click', function(event) 
     background-color: #f0f0f0;
 }
 #error-message {
-        margin-bottom: 15px;
-    }
+    margin-bottom: 15px;
+}
 </style>
-
-

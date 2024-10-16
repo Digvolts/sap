@@ -194,17 +194,18 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="detail_jadwal" class="form-label">Detail Jadwal PD</label>
-                        @if(isset($pegawaiPds) && $pegawaiPds->count() > 0)
-                            <ul>
-                            @foreach($pegawaiPds as $pegawai)
-                                <li>{{ $pegawai->nama }}</li>
-                            @endforeach
-                            </ul>
-                        @else
-                            <p>Belum ada pelaksana perjalanan dinas</p>
-                        @endif
-                    </div>
+    <label for="detail_jadwal" class="form-label">Detail Jadwal PD</label>
+    <ul id="pegawaiList">
+        @if(isset($pegawaiPds) && $pegawaiPds->count() > 0)
+            @foreach($pegawaiPds as $pegawai)
+                <li>{{ $pegawai->nama }} - {{ $pegawai->nip }} ({{ $pegawai->jabatan_1 }})</li>
+            @endforeach
+        @else
+            <li class="no-pegawai">Belum ada pelaksana perjalanan dinas</li>
+        @endif
+    </ul>
+</div>
+
 
 
                     <div class="form-group">
@@ -352,7 +353,19 @@ document.addEventListener('DOMContentLoaded', function() {
         height: 200,
     });
 });
-
+window.addEventListener('pegawaiAdded', function(event) {
+        const newPegawai = event.detail;
+        const pegawaiList = document.getElementById('pegawaiList');
+        const noPegawaiElement = pegawaiList.querySelector('.no-pegawai');
+        
+        if (noPegawaiElement) {
+            noPegawaiElement.remove();
+        }
+        
+        const newItem = document.createElement('li');
+        newItem.textContent = `${newPegawai.nama} - ${newPegawai.nip} (${newPegawai.jabatan_1})`;
+        pegawaiList.appendChild(newItem);
+    });
 
 
 </script>

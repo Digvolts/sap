@@ -20,7 +20,6 @@ return new class extends Migration
             $table->date('tanggal_kegiatan_mulai');
             $table->date('tanggal_kegiatan_selesai');
             $table->integer('lama_kegiatan');
-            $table->text('pelaksana');
             $table->string('maksut');
             $table->boolean('meeting_online')->default(false);
             $table->string('nama_kegiatan');
