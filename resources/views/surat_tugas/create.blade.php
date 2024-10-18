@@ -1,12 +1,23 @@
 @extends('layouts.app')
 
 @section('content')
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 <div class="container">
     <title>Buat Surat Tugas Baru</title>
     @if(session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
         </div>
+    @endif
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
     @endif
 
     <style>
@@ -79,7 +90,7 @@
             background-color: #f8f9fa;
         }
     </style>
-
+@include('components.modal-form')
     <div class="row justify-content-center">
         <div class="col-lg-10">
             <div class="form-container">
@@ -91,19 +102,20 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
-
-                <form action="{{ route('surat_tugas.store') }}" method="POST">
+                
+                <form method="POST" action="{{ route('surat_tugas.store') }}" >
                     @csrf
                     <div class="form-group">
                         <label for="unit" class="form-label">Unit</label>
                         <span>Direktorat Pemberdayaan Informatika | Tim Literasi Digital Sektor Masyarakat Umum</span>
+                        <input type="hidden" id="unit" name="unit" value="Direktorat Pemberdayaan Informatika | Tim Literasi Digital Sektor Masyarakat Umum">
                     </div>
 
                     <div class="form-group">
                         <label for="jenis_pd" class="form-label">Jenis PD</label>
                         <div style="flex: 0 0 70%; display: flex; flex-wrap: wrap; align-items: center;">
                             <div style="flex: 0 0 33.33%; padding-right: 5px;">
-                                <select class="form-select" id="jenis_pd" name="jenis_pd" required>
+                                <select class="form-select @error('jenis_pd') is-invalid @enderror" id="jenis_pd" name="jenis_pd" required>
                                     <option value="" selected disabled>- Pilih -</option>
                                     <option value="524111">Biasa - 524111</option>
                                     <option value="524119">Luar Kota - 524119</option>
@@ -114,45 +126,69 @@
                                     <option value="524211">Luar Negeri (Biasa) - 524211</option>
                                     <option value="524212">Luar Negeri (Tetap) - 524212</option>
                                 </select>
+                                @error('jenis_pd')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div style="flex: 0 0 33.33%; padding-left: 5px; padding-right: 5px;">
-                                <select class="form-select" id="jenis_pd_2" name="jenis_pd_2" required>
+                                <select class="form-select @error('jenis_pd_2') is-invalid @enderror" id="jenis_pd_2" name="jenis_pd_2" required>
                                     <option value="" selected disabled>- Pilih -</option>
                                     <option value="ST">ST -</option>
                                     <option value="GU">GU -</option>
                                 </select>
+                                @error('jenis_pd_2')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div id="kurs_container">
-                                <input type="text" class="form-control" id="kurs" name="kurs" placeholder="Kurs">
+                                <input type="text" class="form-control @error('kurs') is-invalid @enderror" id="kurs" name="kurs" placeholder="Kurs">
+                                @error('kurs')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="asal" class="form-label">Asal</label>
-                        <input type="text" class="form-control" id="asal" name="asal" autocomplete="off" placeholder="Ketik nama kota asal...">
+                        <input type="text" class="form-control @error('asal') is-invalid @enderror" id="asal" name="asal" autocomplete="off" placeholder="Ketik nama kota asal...">
+                        @error('asal')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                         <div id="asal-suggestions" class="suggestions-box"></div>
                     </div>
 
                     <div class="form-group">
                         <label for="tujuan" class="form-label">Tujuan</label>
-                        <input type="text" class="form-control" id="tujuan" name="tujuan" autocomplete="off" placeholder="Ketik nama kota tujuan...">
+                        <input type="text" class="form-control @error('tujuan') is-invalid @enderror" id="tujuan" name="tujuan" autocomplete="off" placeholder="Ketik nama kota tujuan...">
+                        @error('tujuan')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                         <div id="tujuan-suggestions" class="suggestions-box"></div>
                     </div>
 
                     <div class="form-group">
                         <label for="tanggal_kegiatan_mulai" class="form-label">Tanggal Kegiatan Mulai</label>
-                        <input type="text" class="form-control datepicker" id="tanggal_kegiatan_mulai" name="tanggal_kegiatan_mulai" required>
+                        <input type="text" class="form-control datepicker @error('tanggal_kegiatan_mulai') is-invalid @enderror" id="tanggal_kegiatan_mulai" name="tanggal_kegiatan_mulai" required>
+                        @error('tanggal_kegiatan_mulai')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="form-group">
                         <label for="tanggal_kegiatan_selesai" class="form-label">Tanggal Kegiatan Selesai</label>
-                        <input type="text" class="form-control datepicker" id="tanggal_kegiatan_selesai" name="tanggal_kegiatan_selesai" required>
+                        <input type="text" class="form-control datepicker @error('tanggal_kegiatan_selesai') is-invalid @enderror" id="tanggal_kegiatan_selesai" name="tanggal_kegiatan_selesai" required>
+                        @error('tanggal_kegiatan_selesai')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="form-group">
                         <label for="lama_kegiatan" class="form-label">Lama Kegiatan (hari)</label>
-                        <input type="number" class="form-control" id="lama_kegiatan" name="lama_kegiatan" readonly required>
+                        <input type="number" class="form-control @error('lama_kegiatan') is-invalid @enderror" id="lama_kegiatan" name="lama_kegiatan" readonly required>
+                        @error('lama_kegiatan')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="form-group">
@@ -160,53 +196,67 @@
                         <button type="button" class="btn btn-primary" id="pelaksanaButton">Open Form</button>
                     </div>
 
-                    @include('components.modal-form')
+                   
 
                     <div class="form-group">
                         <label for="maksut" class="form-label">Maksud perjalanan</label>
-                        <select class="form-select" id="maksut" name="maksut" required>
+                        <select class="form-select @error('maksut') is-invalid @enderror" id="maksut" name="maksut" required>
                             <option value="melaksanakan">melaksanakan </option>
                             <option value="menghadiri">menghadiri</option>
                         </select>
+                        @error('maksut')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="form-group">
                         <label for="meeting_online" class="form-label">Meeting Online</label>
-                        <select class="form-select" id="meeting_online" name="meeting_online">
+                        <select class="form-select @error('meeting_online') is-invalid @enderror" id="meeting_online" name="meeting_online">
                             <option value="0">Tidak</option>
                             <option value="1">Ya</option>
                         </select>
+                        @error('meeting_online')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="form-group">
                         <label for="nama_kegiatan" class="form-label">Nama Kegiatan</label>
-                        <input type="text" class="form-control" id="nama_kegiatan" name="nama_kegiatan" required>
+                        <input type="text" class="form-control @error('nama_kegiatan') is-invalid @enderror" id="nama_kegiatan" name="nama_kegiatan" required>
+                        @error('nama_kegiatan')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="form-group">
                         <label for="jumlah_peserta" class="form-label">Jumlah Peserta</label>
-                        <input type="number" class="form-control" id="jumlah_peserta" name="jumlah_peserta" required>
+                        <input type="number" class="form-control @error('jumlah_peserta') is-invalid @enderror" id="jumlah_peserta" name="jumlah_peserta" required>
+                        @error('jumlah_peserta')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="form-group">
                         <label for="dasar" class="form-label">Dasar</label>
-                        <textarea class="form-control" id="dasar" name="dasar" rows="3" required></textarea>
+                        <textarea class="form-control @error('dasar') is-invalid @enderror" id="dasar" name="dasar" rows="3" required></textarea>
+                        @error('dasar')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="form-group">
-    <label for="detail_jadwal" class="form-label">Detail Jadwal PD</label>
-    <ul id="pegawaiList">
-        @if(isset($pegawaiPds) && $pegawaiPds->count() > 0)
-            @foreach($pegawaiPds as $pegawai)
-                <li>{{ $pegawai->nama }} - {{ $pegawai->nip }} ({{ $pegawai->jabatan_1 }})</li>
-            @endforeach
-        @else
-            <li class="no-pegawai">Belum ada pelaksana perjalanan dinas</li>
-        @endif
-    </ul>
-</div>
-
-
+                        <label for="detail_jadwal" class="form-label">Detail Jadwal PD</label>
+                        <ul id="pegawaiList">
+                            @if(isset($pegawaiPds) && $pegawaiPds->count() > 0)
+                                @foreach($pegawaiPds as $pegawai)
+                                    <li>{{ $pegawai->nama }} - {{ $pegawai->nip }} ({{ $pegawai->jabatan_1 }})</li>
+                                    <input type="hidden" name="pegawai_ids[]" value="{{ $pegawai->id }}">
+                                @endforeach
+                            @else
+                                <li class="no-pegawai">Belum ada pelaksana perjalanan dinas</li>
+                            @endif
+                        </ul>
+                    </div>
 
                     <div class="form-group">
                         <label for="penandatanganan" class="form-label">Set Penandatanganan</label>
@@ -215,39 +265,44 @@
 
                     <div class="form-group">
                         <label for="lampiran" class="form-label">Upload Lampiran</label>
-                        <input type="text" class="form-control" id="lampiran" name="lampiran">
+                        <input type="text" class="form-control @error('lampiran') is-invalid @enderror" id="lampiran" name="lampiran">
+                        @error('lampiran')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="form-group">
                         <label for="is_draft" class="form-label">Draft</label>
-                        <select class="form-select" id="is_draft" name="is_draft">
+                        <select class="form-select @error('is_draft') is-invalid @enderror" id="is_draft" name="is_draft">
                             <option value="0">Tidak</option>
                             <option value="1">Ya</option>
                         </select>
+                        @error('is_draft')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="form-group">
                         <label for="catatan" class="form-label">Catatan</label>
-                        <textarea class="form-control" id="catatan" name="catatan" rows="3"></textarea>
+                        <textarea class="form-control @error('catatan') is-invalid @enderror" id="catatan" name="catatan" rows="3"></textarea>
+                        @error('catatan')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="text-center mt-4">
-                        <button type="submit" class="btn btn-primary btn-submit"><i class="fas fa-save me-2"></i>Simpan</button>
+                    <button type="submit">Submit</button>
                     </div>
                 </form>
-                <div id="addedEmployeesList" class="mt-4"></div> <!-- Placeholder for added employees -->
             </div>
         </div>
     </div>
-
 </div>
 
-<!-- Load jQuery before Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js"></script>
-<script src="https://cdn.tiny.cloud/1/woi3njzxlaf1wiard6pwi9xwevxnki6eoyjpk0xgfe9imhpp/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -258,12 +313,10 @@ document.addEventListener('DOMContentLoaded', function() {
         disableMobile: "true"
     });
 
-
     pelaksanaButton.addEventListener('click', function() {
-        $('#formModal').modal('show'); // jQuery is now available here
+        $('#formModal').modal('show');
     });
 
-    // Duration and Kurs functionality
     const startDateInput = document.getElementById('tanggal_kegiatan_mulai');
     const endDateInput = document.getElementById('tanggal_kegiatan_selesai');
     const durationInput = document.getElementById('lama_kegiatan');
@@ -282,7 +335,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const endDate = new Date(endYear, endMonth - 1, endDay);
 
             const diffTime = endDate - startDate;
-            const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24)) + 1; // +1 to include both start and end days
+            const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24)) + 1;
             durationInput.value = diffDays;
         }
     }
@@ -300,12 +353,9 @@ document.addEventListener('DOMContentLoaded', function() {
     endDateInput.addEventListener('change', calculateDuration);
     jenisPdSelect.addEventListener('change', toggleKursInput);
 
-    // Calculate duration on page load if dates are already set
     calculateDuration();
-    // Check if kurs input should be displayed on page load
     toggleKursInput();
 
-    // City suggestions
     const asalInput = document.getElementById('asal');
     const tujuanInput = document.getElementById('tujuan');
     const asalSuggestions = document.getElementById('asal-suggestions');
@@ -344,16 +394,7 @@ document.addEventListener('DOMContentLoaded', function() {
     asalInput.addEventListener('input', () => fetchCitySuggestions(asalInput.value, asalInput, asalSuggestions));
     tujuanInput.addEventListener('input', () => fetchCitySuggestions(tujuanInput.value, tujuanInput, tujuanSuggestions));
 
-    // Initialize TinyMCE
-    tinymce.init({
-        selector: '#dasar',
-        plugins: 'lists link image charmap print preview',
-        toolbar: 'undo redo | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | numlist bullist | link image',
-        menubar: false,
-        height: 200,
-    });
-});
-window.addEventListener('pegawaiAdded', function(event) {
+    window.addEventListener('pegawaiAdded', function(event) {
         const newPegawai = event.detail;
         const pegawaiList = document.getElementById('pegawaiList');
         const noPegawaiElement = pegawaiList.querySelector('.no-pegawai');
@@ -365,8 +406,13 @@ window.addEventListener('pegawaiAdded', function(event) {
         const newItem = document.createElement('li');
         newItem.textContent = `${newPegawai.nama} - ${newPegawai.nip} (${newPegawai.jabatan_1})`;
         pegawaiList.appendChild(newItem);
+
+        const hiddenInput = document.createElement('input');
+        hiddenInput.type = 'hidden';
+        hiddenInput.name = 'pegawai_ids[]';
+        hiddenInput.value = newPegawai.id;
+        document.querySelector('form').appendChild(hiddenInput);
     });
-
-
+});
 </script>
 @endsection

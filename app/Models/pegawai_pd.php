@@ -12,6 +12,6 @@ class pegawai_pd extends Model
 
     public function suratTugas()
     {
-        return $this->belongsToMany(Surat_Tugas::class, 'surat_tugas_pegawai');
+        return $this->belongsToMany(Surat_Tugas::class, 'surat_tugas_pegawais');
     }
 }

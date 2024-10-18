@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/surat-tugas', [surat_tugasController::class, 'index'])->name('surat_tugas.index');
 Route::get('/surat-tugas/create', [surat_tugasController::class, 'create'])->name('surat_tugas.create');
 Route::post('/surat-tugas', [surat_tugasController::class, 'store'])->name('surat_tugas.store');
 Route::get('/search-cities', [surat_tugasController::class, 'searchCities']);
@@ -32,6 +33,8 @@ Route::post('/pegawai', [PegawaiController::class, 'store'])->name('pegawai.stor
 Route::get('/pegawai/{pegawai}/edit', [PegawaiController::class, 'edit'])->name('pegawai.edit');
 Route::put('/pegawai/{pegawai}', [PegawaiController::class, 'update'])->name('pegawai.update');
 Route::delete('/pegawai/{pegawai}', [PegawaiController::class, 'destroy'])->name('pegawai.destroy');
+
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

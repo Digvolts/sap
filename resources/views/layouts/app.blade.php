@@ -30,9 +30,18 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-                    <a href="/pegawai/create">REATE PEGAWAI</a>
-                    <a href="/surat-tugas/create">Surat tugas</a>
-                    <a href="/pegawai"> PEGAWAI</a>
+                        <li class="nav-item">
+                                <a class="nav-link" href="{{ route('pegawai.index') }}">Idenx pegawai</a>
+                        </li>
+                        <li class="nav-item">
+                                <a class="nav-link" href="{{ route('pegawai.create') }}">Create pegawai</a>
+                        </li>
+                        <li class="nav-item">
+                                <a class="nav-link" href="{{ route('surat_tugas.create') }}">Create Surat</a>
+                        </li>
+                        <li class="nav-item">
+                                <a class="nav-link" href="{{ route('surat_tugas.create') }}">Create Surat</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

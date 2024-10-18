@@ -103,63 +103,7 @@
 </div>
 
 <style>
-    .container {
-        max-width: 800px; /* Adjusted for a more compact design */
-        margin: auto;
-        padding: 30px;
-        background-color: #f0f4ff; /* Soft blue background */
-    }
-
-    .card {
-        border-radius: 16px; /* Rounded corners */
-        border: none;
-        background-color: #ffffff; /* White card background */
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    }
-
-    .card-header {
-        background-color: #007bff; /* Primary color */
-        color: #ffffff; /* White text */
-        border-top-left-radius: 16px;
-        border-top-right-radius: 16px;
-        padding: 20px;
-    }
-
-    .card-header h1 {
-        font-size: 28px; /* Larger header */
-        font-weight: bold;
-    }
-
-    .card-body {
-        padding: 30px; /* More padding for a spacious feel */
-    }
-
-    .form-group {
-        margin-bottom: 25px; /* Increased spacing */
-    }
-
-    .form-control {
-        border: 2px solid #007bff; /* Primary color border */
-        border-radius: 12px; /* Rounded input fields */
-        padding: 12px; /* More padding */
-        transition: border-color 0.3s; /* Smooth border color transition */
-    }
-
-    .form-control:focus {
-        border-color: #0056b3; /* Darker blue on focus */
-        box-shadow: 0 0 5px rgba(38, 143, 255, 0.5); /* Subtle glow effect */
-    }
-
-    .btn {
-        border-radius: 12px; /* Rounded button */
-        font-size: 16px; /* Larger button text */
-        padding: 10px; /* More padding */
-        transition: background-color 0.3s; /* Smooth background color transition */
-    }
-
-    .btn:hover {
-        background-color: #0056b3; /* Darker blue on hover */
-    }
+  
 </style>
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">

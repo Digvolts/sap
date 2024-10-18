@@ -13,22 +13,22 @@ return new class extends Migration
     {
         Schema::create('surat_tugas', function (Blueprint $table) {
             $table->id();
+            $table->string('unit');
             $table->string('jenis_pd');
-            $table->string('pembayaran');
+            $table->string('jenis_pd_2');
+            $table->string('kurs')->nullable();
             $table->string('asal');
             $table->string('tujuan');
             $table->date('tanggal_kegiatan_mulai');
             $table->date('tanggal_kegiatan_selesai');
             $table->integer('lama_kegiatan');
             $table->string('maksut');
-            $table->boolean('meeting_online')->default(false);
+            $table->boolean('meeting_online');
             $table->string('nama_kegiatan');
             $table->integer('jumlah_peserta');
             $table->text('dasar');
-            $table->text('detail_jadwal');
-            $table->string('penandatanganan');
             $table->string('lampiran')->nullable();
-            $table->boolean('is_draft')->default(false);
+            $table->boolean('is_draft');
             $table->text('catatan')->nullable();
             $table->timestamps();
         });

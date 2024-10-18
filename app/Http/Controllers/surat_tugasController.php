@@ -6,10 +6,17 @@ use App\Models\pegawai;
 use App\Models\pegawai_pd;
 use App\Models\Province;
 use App\Models\surat_tugas;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class surat_tugasController extends Controller
 {
+    public function index()
+    {
+        $suratTugas = Surat_Tugas::with('pegawaiPds')->get();
+        return view('surat_tugas.index', compact('suratTugas'));
+    }
+    
     public function create()
     {
         $pegawaiPds = Pegawai_Pd::all(); // Mengambil semua data dari tabel pegawai_pds
@@ -46,56 +53,37 @@ class surat_tugasController extends Controller
     
     public function store(Request $request)
     {
-        // Validasi input dari form utama
-        $validatedData = $request->validate([
+        $validated = $request->validate([
+            'unit' => 'required|string|max:255',
             'jenis_pd' => 'required|string',
-            'pembayaran' => 'required|string',
-            'asal' => 'required|string',
-            'tujuan' => 'required|string',
-            'tanggal_kegiatan_mulai' => 'required|date',
-            'tanggal_kegiatan_selesai' => 'required|date',
+            'jenis_pd_2' => 'required|string',
+            'kurs' => 'nullable|string|max:255',
+            'asal' => 'required|string|max:255',
+            'tujuan' => 'required|string|max:255',
+            'tanggal_kegiatan_mulai' => 'required|date_format:d-m-Y',
+            'tanggal_kegiatan_selesai' => 'required|date_format:d-m-Y',
             'lama_kegiatan' => 'required|integer',
-            'pelaksana_ids' => 'required|array', // Menggunakan array ID pelaksana dari modal
-            'maksut' => 'required|string',
-            'meeting_online' => 'boolean',
-            'nama_kegiatan' => 'required|string',
+            'maksut' => 'required|string|max:255',
+            'meeting_online' => 'required|boolean',
+            'nama_kegiatan' => 'required|string|max:255',
             'jumlah_peserta' => 'required|integer',
             'dasar' => 'required|string',
-            'detail_jadwal' => 'required|string',
-            'penandatanganan' => 'required|string',
-            'lampiran' => 'nullable|string',
-            'is_draft' => 'boolean',
+            'lampiran' => 'nullable|string|max:255',
+            'is_draft' => 'required|boolean',
             'catatan' => 'nullable|string',
+            'pegawai_ids' => 'required|array',
         ]);
-    
-        // Simpan data Surat Tugas
-        $suratTugas = new Surat_Tugas();
-        $suratTugas->jenis_pd = $validatedData['jenis_pd'];
-        $suratTugas->pembayaran = $validatedData['pembayaran'];
-        $suratTugas->asal = $validatedData['asal'];
-        $suratTugas->tujuan = $validatedData['tujuan'];
-        $suratTugas->tanggal_kegiatan_mulai = $validatedData['tanggal_kegiatan_mulai'];
-        $suratTugas->tanggal_kegiatan_selesai = $validatedData['tanggal_kegiatan_selesai'];
-        $suratTugas->lama_kegiatan = $validatedData['lama_kegiatan'];
-        $suratTugas->maksut = $validatedData['maksut'];
-        $suratTugas->meeting_online = $validatedData['meeting_online'];
-        $suratTugas->nama_kegiatan = $validatedData['nama_kegiatan'];
-        $suratTugas->jumlah_peserta = $validatedData['jumlah_peserta'];
-        $suratTugas->dasar = $validatedData['dasar'];
-        $suratTugas->detail_jadwal = $validatedData['detail_jadwal'];
-        $suratTugas->penandatanganan = $validatedData['penandatanganan'];
-        $suratTugas->lampiran = $validatedData['lampiran'];
-        $suratTugas->is_draft = $validatedData['is_draft'];
-        $suratTugas->catatan = $validatedData['catatan'];
-    
-        // Simpan Surat Tugas ke database
-        $suratTugas->save();
-    
-        // Simpan pelaksana ke dalam tabel pivot (relasi many-to-many)
-        $suratTugas->pelaksana()->sync($validatedData['pelaksana_ids']);
-    
-        return redirect()->route('surat_tugas.create')->with('success', 'Surat Tugas berhasil disimpan.');
+
+        // Convert dates to Y-m-d format for database storage
+        $validated['tanggal_kegiatan_mulai'] = Carbon::createFromFormat('d-m-Y', $validated['tanggal_kegiatan_mulai'])->format('Y-m-d');
+        $validated['tanggal_kegiatan_selesai'] = Carbon::createFromFormat('d-m-Y', $validated['tanggal_kegiatan_selesai'])->format('Y-m-d');
+
+        $suratTugas = Surat_Tugas::create($validated);
+        $suratTugas->pegawaiPds()->sync($validated['pegawai_ids']);
+       
+        return redirect()->route('surat_tugas.index')->with('success', 'Surat Tugas berhasil disimpan.');
     }
+    
     
     public function store_pd(Request $request)
     {
