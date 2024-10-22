@@ -395,24 +395,28 @@ document.addEventListener('DOMContentLoaded', function() {
     tujuanInput.addEventListener('input', () => fetchCitySuggestions(tujuanInput.value, tujuanInput, tujuanSuggestions));
 
     window.addEventListener('pegawaiAdded', function(event) {
-        const newPegawai = event.detail;
-        const pegawaiList = document.getElementById('pegawaiList');
-        const noPegawaiElement = pegawaiList.querySelector('.no-pegawai');
-        
-        if (noPegawaiElement) {
-            noPegawaiElement.remove();
-        }
-        
-        const newItem = document.createElement('li');
-        newItem.textContent = `${newPegawai.nama} - ${newPegawai.nip} (${newPegawai.jabatan_1})`;
-        pegawaiList.appendChild(newItem);
+    const newPegawai = event.detail;
 
-        const hiddenInput = document.createElement('input');
-        hiddenInput.type = 'hidden';
-        hiddenInput.name = 'pegawai_ids[]';
-        hiddenInput.value = newPegawai.id;
-        document.querySelector('form').appendChild(hiddenInput);
-    });
+    const pegawaiList = document.getElementById('pegawaiList');
+    const noPegawaiElement = pegawaiList.querySelector('.no-pegawai');
+
+    if (noPegawaiElement) {
+        noPegawaiElement.remove(); // Hapus elemen "Belum ada pelaksana perjalanan dinas" jika ada
+    }
+
+    // Tambahkan pegawai baru ke dalam daftar
+    const newItem = document.createElement('li');
+    newItem.textContent = `${newPegawai.nama} - ${newPegawai.nip} (${newPegawai.jabatan_1})`;
+    pegawaiList.appendChild(newItem);
+
+    // Tambahkan input tersembunyi untuk mengirim ID pegawai saat submit
+    const hiddenInput = document.createElement('input');
+    hiddenInput.type = 'hidden';
+    hiddenInput.name = 'pegawai_ids[]';
+    hiddenInput.value = newPegawai.id;
+    document.querySelector('form').appendChild(hiddenInput);
+});
+
 });
 </script>
 @endsection

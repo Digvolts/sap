@@ -17,12 +17,17 @@ class surat_tugasController extends Controller
         return view('surat_tugas.index', compact('suratTugas'));
     }
     
-    public function create()
+    public function create(Request $request)
     {
-        $pegawaiPds = Pegawai_Pd::all(); // Mengambil semua data dari tabel pegawai_pds
+        // Ambil ID dari session untuk pegawai yang baru saja ditambahkan
+        $pegawaiIds = $request->session()->get('new_pegawai_ids', []);
         
+        // Ambil pegawai yang sesuai dengan ID dalam session
+        $pegawaiPds = Pegawai_Pd::whereIn('id', $pegawaiIds)->get();
+    
         return view('surat_tugas.create', compact('pegawaiPds'));
     }
+    
 
     public function searchCities(Request $request)
     {
