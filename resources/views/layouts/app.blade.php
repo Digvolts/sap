@@ -12,6 +12,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -37,7 +38,7 @@
                                 <a class="nav-link" href="{{ route('pegawai.create') }}">Create pegawai</a>
                         </li>
                         <li class="nav-item">
-                                <a class="nav-link" href="{{ route('surat_tugas.create') }}">Create Surat</a>
+                                <a class="nav-link" href="{{ route('surat_tugas.index') }}">index Surat</a>
                         </li>
                         <li class="nav-item">
                                 <a class="nav-link" href="{{ route('surat_tugas.create') }}">Create Surat</a>

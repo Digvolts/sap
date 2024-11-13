@@ -50,8 +50,7 @@ class pegawaiController extends Controller
             'nama' => 'required|string|max:255',
             'nip' => 'nullable|string|min:20|unique:pegawais',
             'golongan' => 'nullable|string',
-            'jabatan_1' => 'required|string', // Required field
-            'jabatan_2' => 'nullable|string',
+            'jabatan' => 'required|string', // Required field
             'no_handphone' => 'nullable|string',
             'email' => 'nullable|email',
             'npwp' => 'nullable|string|size:20|unique:pegawais',
@@ -79,8 +78,7 @@ class pegawaiController extends Controller
             'nama' => 'required|string|max:255',
             'nip' => 'string|min:20|unique:pegawais',
             'golongan' => 'string',
-            'jabatan_1' => 'required|string',
-            'jabatan_2' => 'string',
+            'jabatan' => 'required|string',
             'no_handphone' => 'string',
             'email' => 'email',
             'npwp' => 'string|size:15|unique:pegawais', // 15 characters for NPWP

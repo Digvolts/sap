@@ -25,69 +25,60 @@
                 <input type="hidden" name="direktorat" value="kemuliaan">
 
                 <div class="form-group">
-                    <label for="nama" class="col-form-label">Nama</label>
-                    <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" required>
-                    @error('nama')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label for="nip" class="col-form-label">NIP</label>
-                    <input type="text" class="form-control @error('nip') is-invalid @enderror" id="nip" name="nip"  placeholder="12345678 123456 1 123" >
-                    @error('nip')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label for="golongan" class="col-form-label">Golongan</label>
-                    <input type="text" class="form-control @error('golongan') is-invalid @enderror" id="golongan" name="golongan" >
-                    @error('golongan')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                    <small class="form-text text-muted">Contoh: Penata / III-c</small>
-                </div>
-                <div class="form-group">
-                    <label for="jabatan_1" class="col-form-label">Jabatan 1</label>
-                    <input type="text" class="form-control @error('jabatan_1') is-invalid @enderror" id="jabatan_1" name="jabatan_1" required>
-                    @error('jabatan_1')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label for="jabatan_2" class="col-form-label">Jabatan 2</label>
-                    <input type="text" class="form-control @error('jabatan_2') is-invalid @enderror" id="jabatan_2" name="jabatan_2">
-                    @error('jabatan_2')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label for="no_handphone" class="col-form-label">No. Handphone</label>
-                    <input type="text" class="form-control @error('no_handphone') is-invalid @enderror" id="no_handphone" name="no_handphone" >
-                    @error('no_handphone')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label for="email" class="col-form-label">Email</label>
-                    <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" >
-                    @error('email')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label for="npwp" class="col-form-label">NPWP</label>
-                    <input type="text" class="form-control @error('npwp') is-invalid @enderror" id="npwp" name="npwp"  placeholder="12.345.678.9-123.456">
-                    @error('npwp')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label for="ktp" class="col-form-label">KTP</label>
-                    <input type="text" class="form-control @error('ktp') is-invalid @enderror" id="ktp" name="ktp"  placeholder="1234567890123456">
-                    @error('ktp')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
+    <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" placeholder="Nama" required>
+    @error('nama')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control @error('nip') is-invalid @enderror" id="nip" name="nip" placeholder="NIP (e.g., 12345678 123456 1 123)">
+    @error('nip')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control @error('golongan') is-invalid @enderror" id="golongan" name="golongan" placeholder="Golongan (e.g., Penata / III-c)">
+    @error('golongan')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control @error('jabatan') is-invalid @enderror" id="jabatan" name="jabatan" placeholder="Jabatan 1" required>
+    @error('jabatan')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control @error('no_handphone') is-invalid @enderror" id="no_handphone" name="no_handphone" placeholder="No. Handphone">
+    @error('no_handphone')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
+
+<div class="form-group">
+    <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="Email">
+    @error('email')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control @error('npwp') is-invalid @enderror" id="npwp" name="npwp" placeholder="NPWP (e.g., 12.345.678.9-123.456)">
+    @error('npwp')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
+
+<div class="form-group">
+    <input type="text" class="form-control @error('ktp') is-invalid @enderror" id="ktp" name="ktp" placeholder="KTP (e.g., 1234567890123456)">
+    @error('ktp')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
                 <div class="form-group">
                     <label class="col-form-label">Status</label>
                     <div>
@@ -116,7 +107,7 @@
         $('#ktp').inputmask('9999999999999999'); // Input mask for KTP
 
         // Validation for required fields on focus out
-        $('#nama, #jabatan_1').on('focusout', function() {
+        $('#nama, #jabatan').on('focusout', function() {
             if ($(this).val().trim() === '') {
                 $(this).addClass('is-invalid'); // Add invalid class
                 $(this).next('.invalid-feedback').show(); // Show error message

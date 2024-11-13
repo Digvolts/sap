@@ -18,8 +18,7 @@ return new class extends Migration
             $table->string('nama'); // Required
             $table->string('nip')->unique()->nullable(); // Make this nullable
             $table->string('golongan')->nullable(); // Nullable
-            $table->string('jabatan_1'); // Required
-            $table->string('jabatan_2')->nullable(); // Nullable
+            $table->string('jabatan'); // Required
             $table->string('no_handphone')->nullable(); // Nullable
             $table->string('email')->nullable(); // Nullable
             $table->string('npwp')->unique()->nullable(); // Make this nullable

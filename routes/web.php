@@ -19,12 +19,17 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/surat-tugas', [surat_tugasController::class, 'index'])->name('surat_tugas.index');
+
+Route::get('surat-tugas', [surat_tugasController::class, 'index'])->name('surat_tugas.index');
+Route::post('surat_tugas', [surat_tugasController::class, 'store'])->name('surat_tugas.store');
+
 Route::get('/surat-tugas/create', [surat_tugasController::class, 'create'])->name('surat_tugas.create');
-Route::post('/surat-tugas', [surat_tugasController::class, 'store'])->name('surat_tugas.store');
+Route::post('pegawai_surat_tugas', [surat_tugasController::class, 'storePegawai'])->name('pegawai_surat_tugas.store');
+
+
 Route::get('/search-cities', [surat_tugasController::class, 'searchCities']);
 Route::get('/pegawai/suggestions', [surat_tugasController::class, 'getSuggestions']);
-Route::post('/pegawai/add', [surat_tugasController::class, 'store_pd']);
+
 
 Route::get('/pegawai/data', [PegawaiController::class, 'getData'])->name('pegawai.data');
 Route::get('/pegawai', [pegawaiController::class, 'index'])->name('pegawai.index');
@@ -34,7 +39,8 @@ Route::get('/pegawai/{pegawai}/edit', [PegawaiController::class, 'edit'])->name(
 Route::put('/pegawai/{pegawai}', [PegawaiController::class, 'update'])->name('pegawai.update');
 Route::delete('/pegawai/{pegawai}', [PegawaiController::class, 'destroy'])->name('pegawai.destroy');
 
-
+Route::get('/surat_tugas/download/{id}', [surat_tugasController::class, 'generateWord'])->name('surat_tugas.generateWord');
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::post('/pegawai/check-availability', [surat_tugasController::class, 'checkAvailability'])->name('pegawai.checkAvailability');

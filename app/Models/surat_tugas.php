@@ -9,27 +9,13 @@ class surat_tugas extends Model
 {
     use HasFactory;
     
-    protected $fillable = [
-        'unit',
-        'jenis_pd',
-        'jenis_pd_2',
-        'kurs',
-        'asal',
-        'tujuan',
-        'tanggal_kegiatan_mulai',
-        'tanggal_kegiatan_selesai',
-        'lama_kegiatan',
-        'maksut',
-        'meeting_online',
-        'nama_kegiatan',
-        'jumlah_peserta',
-        'dasar',
-        'lampiran',
-        'is_draft',
-        'catatan',
+   protected $fillable = [
+        'unit', 'jenis_pd', 'jenis_pd_2', 'asal', 'tujuan', 'tanggal_kegiatan_mulai',
+        'tanggal_kegiatan_selesai', 'lama_kegiatan', 'maksut', 'meeting_online',
+        'nama_kegiatan', 'jumlah_peserta', 'dasar', 'lampiran', 'is_draft', 'catatan'
     ];
-    public function pegawaiPds()
+    public function pegawai()
     {
-        return $this->belongsToMany(Pegawai_Pd::class, 'surat_tugas_pegawais');
+        return $this->hasMany(surat_tugas_pegawais::class);
     }
 }

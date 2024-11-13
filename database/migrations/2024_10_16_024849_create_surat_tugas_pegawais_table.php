@@ -13,12 +13,18 @@ return new class extends Migration
     {
         Schema::create('surat_tugas_pegawais', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('surat_tugas_id');
-            $table->unsignedBigInteger('pegawai_pd_id');
-            $table->timestamps();
+            $table->foreignId('surat_tugas_id')->constrained('surat_tugas')->onDelete('cascade');
+            $table->string('nama');
+            $table->string('nip');
+            $table->string('jabatan');
+            $table->string('golongan');
+            $table->string('status');
+            $table->string('pelaksana');
+            $table->string('keterangan');
 
-            $table->foreign('surat_tugas_id')->references('id')->on('surat_tugas')->onDelete('cascade');
-            $table->foreign('pegawai_pd_id')->references('id')->on('pegawai_pds')->onDelete('cascade');
+            $table->date('tanggal_kegiatan_mulai');  // Kolom tanggal kegiatan mulai
+            $table->date('tanggal_kegiatan_selesai'); // Kolom tanggal kegiatan selesai
+            $table->timestamps();
         });
     }
 
